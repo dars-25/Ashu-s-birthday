@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Ashu 🎂</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #1e1e2f, #3a3a5f);
+    color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+/* Start Screen */
+.start-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #1e1e2f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    flex-direction: column;
+}
+
+.start-screen h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.start-screen button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    background: #ff7aa2;
+    color: white;
+    cursor: pointer;
+}
+
+/* Main Content */
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 40px 0;
+    display: none;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+}
+
+.intro {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+/* Timeline */
+.timeline {
+    border-left: 2px solid #ff7aa2;
+    padding-left: 20px;
+}
+
+.event {
+    margin: 40px 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.8s ease;
+}
+
+.event.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.date {
+    font-weight: bold;
+    color: #ff7aa2;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Final message */
+.final {
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+/* Button */
+.center {
+    text-align: center;
+    margin-top: 40px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    background: #ff7aa2;
+    color: white;
+    cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Start Screen -->
+<div class="start-screen" id="startScreen">
+    <h2>For Ashu 💫</h2>
+    <button onclick="startSite()">Tap to Begin</button>
+</div>
+
+<!-- Main Content -->
+<div class="container" id="mainContent">
+
+<h1>Happy Birthday, Ashu 🎂</h1>
+<p class="intro" id="typing"></p>
+
+<div class="timeline">
+
+<div class="event">
+<div class="date">22 June 2024</div>
+<div class="card">
+It started with something simple—ice cream.
+But somewhere in between those small conversations, I felt something unfamiliar…
+like maybe happiness didn’t have to be complicated.
+</div>
+</div>
+
+<div class="event">
+<div class="date">28 June 2024</div>
+<div class="card">
+That day felt different.
+We opened up, shared parts of ourselves we don’t usually say out loud.
+And somewhere in between all of that… we kissed.
+And we admitted, quietly, that we liked each other.
+That moment stayed.
+</div>
+</div>
+
+<div class="event">
+<div class="date">7 July 2024 – IIT</div>
+<div class="card">
+What we shared that day…
+it wasn’t just a moment.
+It felt deeper than words—like something unspoken but understood.
+</div>
+</div>
+
+<div class="event">
+<div class="date">August – Chennai</div>
+<div class="card">
+Those 5 days…
+they were the easiest kind of happiness.
+Like life slowed down just enough to let me feel it fully.
+</div>
+</div>
+
+<div class="event">
+<div class="date">December</div>
+<div class="card">
+That night meant more than I ever expressed.
+It wasn’t just closeness—
+it was comfort, warmth, something steady.
+</div>
+</div>
+
+<div class="event">
+<div class="date">After</div>
+<div class="card">
+We had something good. Really good.
+Even if it didn’t last the way we imagined.
+
+I understand why things ended.
+And I’ve made peace with it.
+
+But I carry it—with quiet gratitude.
+</div>
+</div>
+
+<div class="event" id="finalMessage">
+<div class="date">Today</div>
+<div class="card final">
+<span id="finalText"></span>
+</div>
+</div>
+
+</div>
+
+<div class="center">
+<button onclick="launchConfetti()">Celebrate 🎉</button>
+</div>
+
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+// Start
+function startSite() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    document.getElementById("music").play();
+    typeIntro();
+}
+
+// Typing intro
+const introText = "Some moments don’t really leave. They just stay, quietly.";
+let i = 0;
+
+function typeIntro() {
+    if (i < introText.length) {
+        document.getElementById("typing").innerHTML += introText.charAt(i);
+        i++;
+        setTimeout(typeIntro, 40);
+    }
+}
+
+// Scroll animation
+const events = document.querySelectorAll('.event');
+
+window.addEventListener('scroll', () => {
+    events.forEach(event => {
+        if (event.getBoundingClientRect().top < window.innerHeight - 100) {
+            event.classList.add('show');
+        }
+    });
+
+    const final = document.getElementById("finalMessage");
+    if (final.getBoundingClientRect().top < window.innerHeight - 100) {
+        document.querySelector(".final").style.opacity = 1;
+        if (j === 0) typeFinal();
+    }
+});
+
+// Final typing
+const finalMessage = `I just hope life is kind to you.
+That you find happiness, in whatever way it comes to you.
+
+Happy Birthday, Ashu. 🎂`;
+
+let j = 0;
+
+function typeFinal() {
+    if (j < finalMessage.length) {
+        document.getElementById("finalText").innerHTML += finalMessage.charAt(j);
+        j++;
+        setTimeout(typeFinal, 40);
+    }
+}
+
+// Confetti
+function launchConfetti() {
+    confetti({ particleCount: 180, spread: 90 });
+}
+</script>
+
+</body>
+</html>
