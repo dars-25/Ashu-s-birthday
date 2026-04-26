@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Ashu 💫</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #2b2b4f, #0f0f1a);
+    color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+/* Screens */
+.start-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0f0f1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+/* Main */
+.container {
+    display: none;
+    padding: 50px 20px;
+}
+
+/* Floating messages */
+.message {
+    max-width: 500px;
+    padding: 20px;
+    margin: 60px auto;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 1s ease;
+    line-height: 1.8;
+    font-size: 18px;
+}
+
+.message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.left { margin-left: 5%; }
+.right { margin-right: 5%; text-align: right; }
+
+/* Final */
+.final {
+    text-align: center;
+    font-size: 22px;
+    opacity: 0;
+    transition: 2s ease;
+}
+
+/* Controls */
+.center { text-align: center; margin-top: 40px; }
+
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    background: #ff7aa2;
+    color: white;
+    cursor: pointer;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- 🔒 Password -->
+<div class="start-screen" id="lockScreen">
+    <h2>Enter Password 🔒</h2>
+    <input type="password" id="passwordInput">
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="error" style="color:#ff7aa2;"></p>
+</div>
+
+<!-- 🎬 Tap -->
+<div class="start-screen" id="startScreen" style="display:none;">
+    <h2>For Ashu 💫</h2>
+    <button onclick="startSite()">Tap to Begin</button>
+</div>
+
+<!-- 🌐 Content -->
+<div class="container" id="mainContent">
+
+<div class="message left">
+Some moments don’t really leave…  
+they just settle somewhere within you, quietly.
+</div>
+
+<div class="message right">
+22nd June 2024 — it was just ice cream.<br><br>
+Nothing extraordinary on the surface.<br>
+But somewhere between the pauses, the glances, the easy silence…<br><br>
+something shifted.<br><br>
+Like happiness didn’t arrive loudly—<br>
+it just… sat beside me, and felt like you.
+</div>
+
+<div class="message left">
+28th June felt different.<br><br>
+We spoke a little more honestly,<br>
+like we had both decided—without saying it—<br>
+to stop holding back.<br><br>
+And somewhere between words and quiet understanding…<br><br>
+we kissed.<br><br>
+Not rushed. Not uncertain.<br><br>
+Just enough to say<br>
+what neither of us had the courage to say before—<br><br>
+that we liked each other.
+</div>
+
+<div class="message right">
+7th July, at IIT…<br><br>
+That day didn’t feel like a continuation—<br>
+it felt like something deepening.<br><br>
+Like whatever this was between us<br>
+had found a language of its own.<br><br>
+It wasn’t just a moment.<br><br>
+It was presence.<br>
+It was intensity.<br><br>
+It was something that stayed,<br>
+long after we walked away from it.
+</div>
+
+<div class="message left">
+August in Chennai…<br><br>
+Those five days didn’t feel real.<br><br>
+Not because they were extraordinary—<br>
+but because of how effortless everything was.<br><br>
+No trying. No pretending.<br><br>
+Just us, existing in the same space,<br>
+like it had always been that way.<br><br>
+Like time, for once,<br>
+wasn’t in a hurry to move forward.
+</div>
+
+<div class="message right">
+And then December…<br><br>
+That night wasn’t just closeness.<br><br>
+It was warmth that lingered,<br>
+comfort that didn’t need to be explained.<br><br>
+For a while,<br>
+the world felt quiet enough<br>
+for me to feel everything fully.<br><br>
+And I did.
+</div>
+
+<div class="message left">
+We had something rare.<br><br>
+Not perfect.<br>
+Not permanent.<br><br>
+But real in a way that didn’t need proof.<br><br>
+And maybe that’s why it was hard to hold onto—<br>
+because some things aren’t meant to stay,<br>
+just to be felt.
+</div>
+
+<div class="message right">
+I understand why things ended.<br><br>
+And somewhere along the way,<br>
+I stopped asking for a different ending.<br><br>
+Some stories don’t need closure.<br><br>
+They just become a part of you,<br>
+in ways you don’t always notice—<br>
+but never really lose.
+</div>
+
+<div class="message left">
+Because some people…<br><br>
+they don’t leave completely.<br><br>
+They just become<br>
+a quiet presence in your memory,<br>
+showing up in the smallest moments.
+</div>
+
+<div class="message final" id="finalMessage">
+<span id="finalText"></span>
+</div>
+
+<div class="center">
+<button onclick="launchConfetti()">Celebrate 🎉</button>
+</div>
+
+</div>
+
+<!-- 🎵 Music -->
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+// Password
+const correctPassword = "2206";
+
+function checkPassword() {
+    if (passwordInput.value === correctPassword) {
+        lockScreen.style.display = "none";
+        startScreen.style.display = "flex";
+    } else {
+        error.innerText = "Wrong password";
+    }
+}
+
+// Start
+function startSite() {
+    startScreen.style.display = "none";
+    mainContent.style.display = "block";
+    music.play();
+}
+
+// Scroll reveal
+const msgs = document.querySelectorAll('.message');
+
+window.addEventListener('scroll', () => {
+    msgs.forEach(msg => {
+        if (msg.getBoundingClientRect().top < window.innerHeight - 100) {
+            msg.classList.add('show');
+        }
+    });
+
+    if (finalMessage.getBoundingClientRect().top < window.innerHeight - 100) {
+        finalMessage.style.opacity = 1;
+        if (j === 0) typeFinal();
+    }
+});
+
+// Final typing
+const finalMessageText = `I don’t hold on to what we were…  
+
+but I carry what it meant.
+
+And maybe that’s enough.
+
+I hope life meets you gently,
+in all the ways it didn’t before.
+
+Happy Birthday, Ashu. 🎂`;
+
+let j = 0;
+
+function typeFinal() {
+    if (j < finalMessageText.length) {
+        finalText.innerHTML += finalMessageText.charAt(j);
+        j++;
+        setTimeout(typeFinal, 40);
+    }
+}
+
+// Confetti
+function launchConfetti() {
+    confetti({ particleCount: 200, spread: 100 });
+}
+</script>
+
+</body>
+</html>
