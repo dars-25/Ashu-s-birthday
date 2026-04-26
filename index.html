@@ -13,7 +13,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Start Screen */
+/* Screens */
 .start-screen {
     position: fixed;
     width: 100%;
@@ -22,26 +22,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
     flex-direction: column;
+    z-index: 10;
 }
 
-.start-screen h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.start-screen button {
-    padding: 12px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    background: #ff7aa2;
-    color: white;
-    cursor: pointer;
-}
-
-/* Main Content */
+/* Main */
 .container {
     width: 80%;
     margin: auto;
@@ -111,19 +96,34 @@ button {
     color: white;
     cursor: pointer;
 }
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 15px;
+}
 </style>
 
 </head>
 
 <body>
 
-<!-- Start Screen -->
-<div class="start-screen" id="startScreen">
+<!-- 🔒 Password Screen -->
+<div class="start-screen" id="lockScreen">
+    <h2>Enter Password 🔒</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password">
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="error" style="color:#ff7aa2;"></p>
+</div>
+
+<!-- 🎬 Tap to Begin -->
+<div class="start-screen" id="startScreen" style="display:none;">
     <h2>For Ashu 💫</h2>
     <button onclick="startSite()">Tap to Begin</button>
 </div>
 
-<!-- Main Content -->
+<!-- 🌐 Main Content -->
 <div class="container" id="mainContent">
 
 <h1>Happy Birthday, Ashu 🎂</h1>
@@ -206,16 +206,31 @@ But I carry it—with quiet gratitude.
 
 </div>
 
-<!-- Music -->
+<!-- 🎵 Music -->
 <audio id="music" loop>
 <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
 </audio>
 
-<!-- Confetti -->
+<!-- 🎉 Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-// Start
+
+// 🔐 Password
+const correctPassword = "2206"; // change if you want
+
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+
+    if (input === correctPassword) {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("startScreen").style.display = "flex";
+    } else {
+        document.getElementById("error").innerText = "Wrong password";
+    }
+}
+
+// 🎬 Start site
 function startSite() {
     document.getElementById("startScreen").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
@@ -223,7 +238,7 @@ function startSite() {
     typeIntro();
 }
 
-// Typing intro
+// ⌨️ Typing intro
 const introText = "Some moments don’t really leave. They just stay, quietly.";
 let i = 0;
 
@@ -235,7 +250,7 @@ function typeIntro() {
     }
 }
 
-// Scroll animation
+// ✨ Scroll animation
 const events = document.querySelectorAll('.event');
 
 window.addEventListener('scroll', () => {
@@ -252,7 +267,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Final typing
+// 💙 Final typing
 const finalMessage = `I just hope life is kind to you.
 That you find happiness, in whatever way it comes to you.
 
@@ -268,11 +283,13 @@ function typeFinal() {
     }
 }
 
-// Confetti
+// 🎉 Confetti
 function launchConfetti() {
     confetti({ particleCount: 180, spread: 90 });
 }
+
 </script>
 
 </body>
+</html>
 </html>
